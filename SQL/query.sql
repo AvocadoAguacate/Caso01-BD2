@@ -96,7 +96,19 @@ CREATE TABLE DELIVERABLES(
   kpi_type INT NOT NULL FOREIGN KEY REFERENCES KPI_TYPE(kpi_id),
   post_time DATE NOT NULL
 )
+GO 
+-- SP query 01
 
+CREATE PROCEDURE query01 
+  @canton_id INT
+AS
+SELECT deliverable_id, action_id, PLAN_PARTY.party_id
+FROM DELIVERABLES
+INNER JOIN PLAN_PARTY
+ON PLAN_PARTY.party_id = DELIVERABLES.plan_id 
+WHERE canton_id = @canton_id
+ORDER BY PLAN_PARTY.party_id
+GO
 --Inserts
 
 INSERT INTO PROVINCE (province_name) VALUES ('Cartago'),('Heredia'),('San Jose'),('Limon'),('Alajuela'),('Puntarenas'),('Guanacaste')
